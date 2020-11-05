@@ -1,31 +1,5 @@
 <!--  舞台少女队伍 -->
 <template>
-<<<<<<< HEAD
-  <!-- <teleport to="body"> -->
-  <div
-    v-show="teamList.length > 0"
-    class="team-card-wrap"
-    :style="{
-      height: teamList.length === 5 ? '160px' : '80px',
-      background: 'white',
-    }"
-  >
-    <div class="team-card">
-      <div
-        v-for="(item, index) in teamList"
-        :key="index"
-        class="girls"
-        @click="handleRemoveStageGril(item)"
-      >
-        <img class="girls-img" :src="item.Url" />
-      </div>
-    </div>
-    <transition name="circle-fade">
-      <div class="circle" v-show="teamList.length === 5">添加队伍</div>
-    </transition>
-  </div>
-  <!-- </teleport> -->
-=======
   <transition name="routes-fade">
     <div v-show="stageGrilsTeam.length > 0" class="team-card-wrap">
       <div class="team-card">
@@ -55,19 +29,11 @@
       </transition>
     </div>
   </transition>
->>>>>>> [modify][remote]
 </template>
 
 <script>
   import { computed, ref } from 'vue';
   import { useStore } from 'vuex';
-<<<<<<< HEAD
-  export default {
-    setup() {
-      const store = useStore();
-
-      const teamList = computed(() => store.state.stageGirlsTeamList);
-=======
   import { useRouter } from 'vue-router';
   export default {
     setup() {
@@ -75,16 +41,10 @@
       const router = useRouter();
 
       const stageGrilsTeam = computed(() => store.state.stageGrilsTeam);
->>>>>>> [modify][remote]
 
       const handleRemoveStageGril = (item) =>
         store.commit('handleRemoveStageGril', item);
 
-<<<<<<< HEAD
-      return {
-        teamList,
-        handleRemoveStageGril,
-=======
       const handleCompositionGroup = () => {
         store.commit('handleCompositionGroup', store.state.stageGrilsTeam);
         store.commit('handleResetStageGrils');
@@ -95,35 +55,12 @@
         stageGrilsTeam,
         handleRemoveStageGril,
         handleCompositionGroup,
->>>>>>> [modify][remote]
       };
     },
   };
 </script>
 
 <style lang="scss" scoped>
-<<<<<<< HEAD
-  .circle-fade-enter-active,
-  .circle-fade-leave-active {
-    opacity: 0.8;
-    transition: all 0.2s ease-in-out 0.4s;
-  }
-  .circle-fade-enter-to,
-  .circle-fade-leave {
-    opacity: 1;
-    transition: all 0.2s ease-in-out 0.4s;
-  }
-  .circle-fade-enter,
-  .circle-fade-leave-to {
-    opacity: 0;
-  }
-  .team-card-wrap {
-    opacity: 0.95;
-    position: absolute;
-    transition: all 0.2s ease-in-out;
-    left: 50%;
-    transform: translateX(-50%);
-=======
   .routes-fade-enter-active,
   .routes-fade-leave-active {
     opacity: 0;
@@ -152,21 +89,14 @@
     left: 50%;
     transform: translateX(-50%);
     transition: all 0.6s ease-in-out;
->>>>>>> [modify][remote]
     bottom: 0;
     border: 3px solid white;
     box-shadow: 0px 0px 15px #ffc4c4;
     border-radius: 10px;
-<<<<<<< HEAD
-    display: flex;
-    flex-direction: column;
-
-=======
     overflow: hidden;
     display: flex;
     flex-direction: column;
     background: white;
->>>>>>> [modify][remote]
     .team-card {
       justify-content: center;
       height: 80px;
@@ -195,18 +125,6 @@
         }
       }
     }
-<<<<<<< HEAD
-    .circle {
-      margin: auto;
-      width: 200px;
-      height: 50px;
-      border-radius: 30px;
-      background-color: #ffc4c4;
-      border: 2px solid white;
-      color: white;
-      line-height: 50px;
-      box-shadow: 0 0 20px #ffc4c4;
-=======
   }
   @media screen and (max-width: 720px) {
     .check-icon {
@@ -220,7 +138,6 @@
         width: 100vw;
         grid-template-rows: calc(100vw / 5);
       }
->>>>>>> [modify][remote]
     }
   }
 </style>

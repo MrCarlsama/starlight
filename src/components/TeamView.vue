@@ -1,14 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <h1>?</h1>
-</template>
-
-<script>
-  export default {};
-</script>
-
-<style></style>
-=======
   <div>
     <div
       v-for="(item, index) in stageGrilsGroup"
@@ -91,4 +81,3 @@
     }
   }
 </style>
->>>>>>> [modify][remote]

@@ -12,6 +12,7 @@ export const store = createStore({
   mutations: {
     // 加入队伍
     handleAddStageGril(state, stageGirl) {
+      console.log(stageGirl)
       if (state.stageGrilsTeam.length < 5) {
         state.stageGrilsTeam.push(stageGirl)
       }
@@ -22,9 +23,9 @@ export const store = createStore({
       state.stageGrilsTeam.splice(index, 1);
     },
     // 组合队伍
-    handleCompositionGroup(state, stateGrils) {
-      console.log(Array.from(stateGrils))
-      state.stageGrilsGroup.push(stateGrils);
+    handleCompositionGroup(state, stageGirls) {
+      console.log(Array.from(stageGirls))
+      state.stageGrilsGroup.push(stageGirls);
       console.log(state.stageGrilsGroup)
     },
     // 清空队伍

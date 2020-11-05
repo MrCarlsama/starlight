@@ -25,11 +25,7 @@
 <style lang="scss" scoped>
   .routes-fade-enter-active,
   .routes-fade-leave-active {
-<<<<<<< HEAD
-    opacity: 0.5;
-=======
     opacity: 0;
->>>>>>> [modify][remote]
     transform: translateY(-10px);
     transition: all 0.2s ease-in-out;
   }
