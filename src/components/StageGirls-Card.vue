@@ -93,7 +93,7 @@ export default {
   left: 50%;
   transform: translateX(-50%);
   transition: all 0.6s ease-in-out;
-  bottom: 0;
+  bottom: 5px;
   border: 5px solid white;
   box-shadow: 0px 0px 20px black;
   border-radius: 10px;
@@ -140,7 +140,7 @@ export default {
   .team-card-wrap {
     .team-card {
       height: calc(100vw / 5);
-      width: 100vw;
+      width: 95vw;
       grid-template-rows: calc(100vw / 5);
     }
   }

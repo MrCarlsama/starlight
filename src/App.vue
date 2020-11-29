@@ -3,12 +3,12 @@
 </template>
 
 <script>
-  import { defineAsyncComponent } from 'vue';
+import {defineAsyncComponent} from 'vue';
 
-  export default {
-    name: 'App',
-    components: {
-      Index: defineAsyncComponent(() => import('./components/Index.vue')),
-    },
-  };
+export default {
+  name: 'App',
+  components: {
+    Index: defineAsyncComponent(() => import('./components/Index.vue')),
+  },
+};
 </script>

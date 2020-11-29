@@ -1,22 +1,26 @@
 <!-- 舞台少女列表 -->
 <template>
   <div class="stage-wrap">
-    <div
-      class="stage-girls"
-      v-for="(item, index) in stageGirlsList"
-      :key="index"
-    >
-      <div class="girls" @click="handleAddStageGirl(item)">
-        <img class="girls-frame" src="../assets/frame.png" />
-        <img
-          class="girls-img"
-          :src="`http://192.168.4.5:9000/images/stageGirls/${item.AppId}/${item.AppId}.png`"
-        />
-      </div>
-      <!-- <p class="girls-name">{{ item.Name }}</p> -->
-    </div>
+    <div class="stage-border-1">
+      <div class="stage-border-2">
+        <div
+          class="stage-girls"
+          v-for="(item, index) in stageGirlsList"
+          :key="index"
+        >
+          <div class="girls" @click="handleAddStageGirl(item)">
+            <img class="girls-frame" src="../assets/frame.png" />
+            <img
+              class="girls-img"
+              :src="`http://192.168.4.5:9000/images/stageGirls/${item.AppId}/${item.AppId}.png`"
+            />
+          </div>
+          <!-- <p class="girls-name">{{ item.Name }}</p> -->
+        </div>
 
-    <TeamCard />
+        <StageGirlsCard />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -25,7 +29,7 @@ import {computed, defineAsyncComponent, onMounted, reactive} from 'vue';
 import {useStore} from 'vuex';
 export default {
   components: {
-    TeamCard: defineAsyncComponent(() => import('./TeamCard.vue')),
+    StageGirlsCard: defineAsyncComponent(() => import('./StageGirls-Card.vue')),
   },
   setup() {
     const stageGirls = reactive({
@@ -45,8 +49,6 @@ export default {
     const handleAddStageGirl = (item) =>
       store.commit('handleAddStageGril', item);
 
-    console.log(store.state.stageGrilsTeam);
-
     const stageGirlsList = computed(() => {
       return stageGirls.list.filter((item) => {
         return (
@@ -65,51 +67,69 @@ export default {
 
 <style lang="scss" scoped>
 .stage-wrap {
-  padding: 10px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 140px);
-  justify-content: center;
-  grid-gap: 20px;
+  width: 980px;
+  margin: auto;
 
-  .stage-girls {
-    height: auto;
-    position: relative;
-    border-radius: 7px;
-    overflow: hidden;
-    cursor: pointer;
+  box-shadow: 0px 0px 10px 0px #917777;
+  padding: 5px;
 
-    .girls-frame {
-      width: 100%;
-      position: absolute;
-    }
+  .stage-border-1 {
+    padding: 2px;
+    border: 3px #ff8a8a solid;
+    .stage-border-2 {
+      border: 2px #ff8a8a solid;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 140px);
+      justify-content: center;
+      grid-gap: 20px;
+      .stage-girls {
+        height: auto;
+        position: relative;
+        border-radius: 7px;
+        overflow: hidden;
+        cursor: pointer;
 
-    .girls-img {
-      width: 100%;
+        .girls-frame {
+          width: 100%;
+          position: absolute;
+        }
+
+        .girls-img {
+          width: 100%;
+        }
+      }
     }
   }
 }
 
 @media screen and (max-width: 720px) {
   .stage-wrap {
-    padding: 10px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    justify-content: center;
-    grid-gap: 8px;
+    width: 92vw;
+    padding: 5px;
 
-    .stage-girls {
-      height: auto;
-      position: relative;
-      border-radius: 7px;
-      overflow: hidden;
+    .stage-border-1 {
+      .stage-border-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        justify-content: center;
+        grid-gap: 8px;
+        padding: 5px;
+        .stage-girls {
+          height: auto;
+          position: relative;
+          border-radius: 7px;
+          overflow: hidden;
 
-      .girls-frame {
-        width: 100%;
-        position: absolute;
-      }
+          .girls-frame {
+            width: 100%;
+            position: absolute;
+          }
 
-      .girls-img {
-        width: 100%;
+          .girls-img {
+            width: 100%;
+          }
+        }
       }
     }
   }
