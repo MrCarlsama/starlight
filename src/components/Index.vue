@@ -19,15 +19,15 @@
       </p>
     </div>
     <nav class="navigationWrap" :class="{show: isClassShow}">
-      <ul class="naviList">
-        <li class="navi00">
-          <a href="/books/violet/" title="Top">舞台少女</a>
+      <ul class="navList">
+        <li>
+          <router-link class="nav-item-side" to="/">舞台少女</router-link>
         </li>
-        <li class="navi01">
-          <a href="/books/violet/story/" title="Story">メモウール</a>
+        <li>
+          <router-link class="nav-item-side" to="/team">メモウール</router-link>
         </li>
         <li class="navi02">
-          <a href="/books/violet/character/" title="Character">編成</a>
+          <router-link class="nav-item-side" to="/ws">編成</router-link>
         </li>
       </ul>
     </nav>
@@ -136,11 +136,11 @@ function useScroll() {
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    opacity: 0.8;
+    opacity: 0.6;
     transition: all 0.5s;
 
     &:not(:last-child) {
-      border-right: 2px solid white;
+      // border-right: 2px solid #ff6d6d;
     }
 
     &:hover {
@@ -150,7 +150,8 @@ function useScroll() {
 
   .active {
     opacity: 1;
-    text-shadow: 0 0 2px white;
+    text-shadow: 1px 1px 15px #ff6d6d;
+    color: #ff6d6d;
     &:hover {
       opacity: 1;
     }
@@ -165,7 +166,14 @@ function useScroll() {
     height: 16vw;
     margin-bottom: 4vw;
     .nav-logo {
+      z-index: 3;
       margin-right: 0;
+      margin-top: 1.5vw;
+      transition: 0.2s;
+      img {
+        width: 36vw;
+        height: 14vw;
+      }
     }
     .nav-item {
       display: none;
@@ -204,7 +212,7 @@ function useScroll() {
       span {
         width: 100%;
         height: 0.5vw;
-        background-color: black;
+        background-color: #ff6d6d;
         -webkit-transition: 0.3s ease-out;
         transition: 0.3s ease-out;
       }
@@ -213,6 +221,7 @@ function useScroll() {
   /*Navigation Button  --  show*/
   .show .naviBtn .naviBtn1 {
     -webkit-transform: translateY(3vw) rotate(-45deg);
+    background-color: white;
     transform: translateY(3vw) rotate(-45deg);
   }
   .show .naviBtn .naviBtn2 {
@@ -222,6 +231,7 @@ function useScroll() {
   .show .naviBtn .naviBtn3 {
     -webkit-transform: translateY(-3vw) rotate(45deg);
     transform: translateY(-3vw) rotate(45deg);
+    background-color: white;
   }
   .show .naviBtn .show .naviBtn .show .naviBtn .naviBtn3 {
     -webkit-transform: translateY(-3vw) rotate(45deg);
@@ -236,12 +246,35 @@ function useScroll() {
     top: 0;
     right: 0;
     overflow: auto;
-    background: #ff6d6d;
+    background: url('/src/assets/bg-crown.png') no-repeat center;
+    background-size: contain;
+    background-color: #ff6d6d;
     z-index: 5;
     opacity: 0;
     visibility: hidden;
     -webkit-transition: 0.3s ease-out;
     transition: 0.3s ease-out;
+
+    .navList {
+      padding: 16vw 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      li {
+        padding: 8vw;
+      }
+
+      .nav-item-side {
+        color: white;
+        padding: 1vw 0;
+        // text-shadow: 0 0 4px white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+        opacity: 0.8;
+      }
+    }
   }
   /*Navigation  --  show*/
   .show.navigationWrap {
