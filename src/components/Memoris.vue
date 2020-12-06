@@ -41,7 +41,7 @@ export default {
     });
 
     onMounted(() => {
-      fetch('http://192.168.4.5:9000/StageGirls/GetListByMemoris', {
+      fetch('http://localhost:9000/StageGirls/GetListByMemoris', {
         method: 'post',
         data: '',
       })
