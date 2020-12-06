@@ -1,39 +1,30 @@
-<!-- 舞台少女列表 -->
+<!-- 礼装列表 -->
 <template>
   <div class="stage-wrap">
     <div class="stage-border-1">
       <div class="stage-border-2">
         <div
           class="stage-girls"
-          v-for="(item, index) in stageGirlsList"
+          v-for="(item, index) in memorisList"
           :key="index"
         >
-          <div class="girls" @click="handleAddStageGirl(item)">
-            <img class="girls-frame" src="/src/assets/frame.png" />
+          <div class="girls" @click="handleAddMemory(item)">
+            <img class="girls-frame" src="/src/assets/frame_memory.png" />
             <img
               class="girls-img"
               :src="`https://revue-starlight.oss-cn-guangzhou.aliyuncs.com/${item.ImageUrl}`"
               :alt="item.Name"
             />
             <img
-              class="girls-attr"
-              :src="`/src/assets/icon_attribute_${item.Attribute.AttributeType}.png`"
-            />
-            <img
-              class="girls-position"
-              :src="`/src/assets/icon_position_${item.Attribute.PositionType}.png`"
-            />
-            <img
               class="girls-rarity"
-              :class="[`girls-rarity-${item.Attribute.Rarity}`]"
-              :src="`/src/assets/icon_rarity_${item.Attribute.Rarity}.png`"
+              :class="[`girls-rarity-${item.Rarity}`]"
+              :src="`/src/assets/icon_rarity_${item.Rarity}.png`"
             />
             <img
-              class="girls-attack"
-              :src="`/src/assets/icon_attack_${item.Attribute.AttackType}.png`"
+              class="girls-skill"
+              :src="`https://revue-starlight.oss-cn-guangzhou.aliyuncs.com/${item.SkillImageUrl}`"
             />
           </div>
-          <!-- <p class="girls-name">{{ item.Name }}</p> -->
         </div>
       </div>
     </div>
@@ -41,41 +32,37 @@
 </template>
 
 <script>
-import {computed, defineAsyncComponent, onMounted, reactive} from 'vue';
+import {computed, onMounted, reactive} from 'vue';
 import {useStore} from 'vuex';
 export default {
-  components: {
-    StageGirlsCard: defineAsyncComponent(() => import('./StageGirls-Card.vue')),
-  },
   setup() {
-    const stageGirls = reactive({
+    const memoris = reactive({
       list: [],
     });
 
     onMounted(() => {
-      fetch('http://192.168.4.5:9000/StageGirls/GetListByStageGirls', {
+      fetch('http://192.168.4.5:9000/StageGirls/GetListByMemoris', {
         method: 'post',
         data: '',
       })
         .then((res) => res.json())
-        .then((data) => (stageGirls.list = data));
+        .then((data) => (memoris.list = data));
     });
     const store = useStore();
 
-    const handleAddStageGirl = (item) =>
-      store.commit('handleAddStageGril', item);
+    const handleAddMemory = (item) => store.commit('handleAddMemory', item);
 
-    const stageGirlsList = computed(() => {
-      return stageGirls.list.filter((item) => {
+    const memorisList = computed(() => {
+      return memoris.list.filter((item) => {
         return (
-          store.state.stageGrilsTeam.find((i) => i.Id === item.Id) === undefined
+          store.state.memorisTeam.find((i) => i.Id === item.Id) === undefined
         );
       });
     });
 
     return {
-      stageGirlsList,
-      handleAddStageGirl,
+      memorisList,
+      handleAddMemory,
     };
   },
 };
@@ -111,31 +98,21 @@ export default {
           position: absolute;
         }
 
-        .girls-attr {
+        .girls-skill {
+          top: 6%;
           width: 30%;
           position: absolute;
-          left: 3%;
-          top: 3%;
-        }
-
-        .girls-position {
-          width: 22%;
-          position: absolute;
-          left: 7%;
-          top: 30%;
-        }
-
-        .girls-attack {
-          top: 3%;
-          width: 33%;
-          position: absolute;
-          left: 67%;
+          left: 63%;
         }
 
         .girls-rarity {
           position: absolute;
-          top: 79%;
-          right: 3%;
+          top: 77%;
+          left: 3%;
+        }
+
+        .girls-rarity-1 {
+          width: 20%;
         }
 
         .girls-rarity-2 {
@@ -143,7 +120,7 @@ export default {
         }
 
         .girls-rarity-3 {
-          width: 44%;
+          width: 45%;
         }
 
         .girls-rarity-4 {

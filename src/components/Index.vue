@@ -8,10 +8,14 @@
         />
       </a>
       <router-link class="nav-item" to="/">舞台少女</router-link>
-      <router-link class="nav-item" to="/team">メモウール</router-link>
+      <router-link class="nav-item" to="/memoris">メモウール</router-link>
       <router-link class="nav-item" to="/ws">編成</router-link>
     </nav>
-    <div class="navigationBtn" :class="{show: isClassShow}" @click="onNavClick">
+    <div
+      class="navigationBtn"
+      :class="{show: isClassShow}"
+      @click="onNavClick()"
+    >
       <p class="naviBtn">
         <span class="naviBtn1"></span>
         <span class="naviBtn2"></span>
@@ -20,14 +24,31 @@
     </div>
     <nav class="navigationWrap" :class="{show: isClassShow}">
       <ul class="navList">
-        <li>
-          <router-link class="nav-item-side" to="/">舞台少女</router-link>
+        <!-- <li>
+          <router-link @click="onNavClick" class="nav-item-side" to="/"
+            >舞台少女</router-link
+          >
         </li>
         <li>
-          <router-link class="nav-item-side" to="/team">メモウール</router-link>
+          <router-link @click="onNavClick" class="nav-item-side" to="/memoris"
+            >メモウール</router-link
+          >
         </li>
         <li class="navi02">
           <router-link class="nav-item-side" to="/ws">編成</router-link>
+        </li> -->
+        <li>
+          <span class="nav-item-side" @click="onNavClick('index')"
+            >舞台少女</span
+          >
+        </li>
+        <li>
+          <span class="nav-item-side" @click="onNavClick('memoris')"
+            >メモウール</span
+          >
+        </li>
+        <li>
+          <span class="nav-item-side" @click="onNavClick('memoris')">編成</span>
         </li>
       </ul>
     </nav>
@@ -35,23 +56,36 @@
     <!-- 路由视图 -->
     <router-view v-slot="{Component}">
       <transition name="routes-fade" mode="out-in">
-        <!-- <keep-alive> -->
-        <component :is="Component" />
-        <!-- </keep-alive> -->
+        <keep-alive>
+          <component :is="Component" />
+        </keep-alive>
       </transition>
     </router-view>
+
+    <StageGirlsCard />
   </div>
 </template>
 
 <script>
-import {onMounted, onUnmounted, ref} from 'vue';
+import {defineAsyncComponent, nextTick, onMounted, onUnmounted, ref} from 'vue';
+import {useRouter} from 'vue-router';
 export default {
+  components: {
+    StageGirlsCard: defineAsyncComponent(() => import('./StageGirls-Card.vue')),
+  },
   setup() {
     const {scrollTop} = useScroll();
+    const router = useRouter();
     const isClassShow = ref(false);
 
-    const onNavClick = () => {
-      isClassShow.value = !isClassShow.value;
+    const onNavClick = (nav) => {
+      // 路由跳转
+      if (nav) {
+        router.push({name: nav});
+      }
+      nextTick(() => {
+        isClassShow.value = !isClassShow.value;
+      });
     };
 
     return {
@@ -66,7 +100,6 @@ function useScroll() {
   const scrollTop = ref(0);
 
   function onUpdateSroll(e) {
-    console.log(e.target.scrollTop);
     scrollTop.value = e.target.scrollTop;
   }
 

@@ -1,7 +1,10 @@
 <!--  舞台少女队伍 -->
 <template>
   <transition name="routes-fade">
-    <div v-show="stageGrilsTeam.length > 0" class="team-card-wrap">
+    <div
+      v-show="stageGrilsTeam.length > 0 || memorisTeam.length > 0"
+      class="team-card-wrap"
+    >
       <div class="team-card">
         <div
           v-for="(item, index) in stageGrilsTeam"
@@ -11,14 +14,27 @@
         >
           <img
             class="girls-img"
-            :src="`http://192.168.4.5:9000/images/stageGirls/${item.AppId}/${item.AppId}.png`"
+            :src="`https://revue-starlight.oss-cn-guangzhou.aliyuncs.com/${item.ImageUrl}`"
+          />
+        </div>
+      </div>
+      <div class="team-card memoris-card">
+        <div
+          v-for="(item, index) in memorisTeam"
+          :key="index"
+          class="girls"
+          @click="handleRemoveMemory(item)"
+        >
+          <img
+            class="girls-img"
+            :src="`https://revue-starlight.oss-cn-guangzhou.aliyuncs.com/${item.ImageUrl}`"
           />
         </div>
       </div>
       <transition name="routes-fade">
         <div
           class="check-icon"
-          v-show="stageGrilsTeam.length === 5"
+          v-show="stageGrilsTeam.length === 5 && memorisTeam.length === 5"
           @click="handleCompositionGroup"
         >
           <svg viewBox="0 0 1024 1024" p-id="2548" width="62" height="62">
@@ -44,19 +60,25 @@ export default {
     const router = useRouter();
 
     const stageGrilsTeam = computed(() => store.state.stageGrilsTeam);
-
     const handleRemoveStageGril = (item) =>
       store.commit('handleRemoveStageGril', item);
 
+    const memorisTeam = computed(() => store.state.memorisTeam);
+    const handleRemoveMemory = (item) =>
+      store.commit('handleRemoveMemory', item);
+
     const handleCompositionGroup = () => {
-      store.commit('handleCompositionGroup', store.state.stageGrilsTeam);
-      store.commit('handleResetStageGrils');
-      router.push('/team');
+      // store.commit('handleCompositionGroup', store.state.stageGrilsTeam);
+      // store.commit('handleResetStageGrils');
+      // router.push('/team');
     };
 
     return {
       stageGrilsTeam,
       handleRemoveStageGril,
+
+      memorisTeam,
+      handleRemoveMemory,
       handleCompositionGroup,
     };
   },
@@ -79,45 +101,49 @@ export default {
 .check-icon {
   transition: all 0.4s ease;
   cursor: pointer;
-  position: absolute;
+  position: fixed;
   left: calc(50% + 200px + 45px);
   transform: translateX(-50%);
-  bottom: calc(40px - 31px);
-  background: white;
+  bottom: calc(70px - 31px);
   border-radius: 50%;
   line-height: 0;
-  box-shadow: 0px 0px 20px black;
+  box-shadow: 0px 0px 20px #00000085;
 }
 .team-card-wrap {
-  position: absolute;
+  position: fixed;
   left: 50%;
   transform: translateX(-50%);
   transition: all 0.6s ease-in-out;
+  padding: 10px;
   bottom: 5px;
-  border: 5px solid white;
-  box-shadow: 0px 0px 20px black;
+  border: 8px solid #ffffff95;
+  box-shadow: 0px 0px 20px #00000095;
   border-radius: 10px;
+  background-color: #ffffff95;
+  background: linear-gradient(to right, #f8f3f3 50%, #ffffff 0);
+  background-size: 40px 100%;
   // overflow: hidden;
   display: flex;
   flex-direction: column;
-  background: white;
 
   .team-card {
     justify-content: center;
     height: 80px;
     width: 400px;
-    background-color: white;
+    // background-color: white;
     overflow: hidden;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 80px;
-    grid-template-areas:
-      'a b c d e '
-      'f g h i j';
+    grid-template-areas: 'a b c d e ';
 
     .girls {
       height: auto;
       position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
       cursor: pointer;
 
       .girls-frame {
@@ -130,18 +156,36 @@ export default {
       }
     }
   }
+  .memoris-card {
+    height: 50px;
+
+    .girls-img {
+      position: absolute;
+      top: -20%;
+    }
+  }
 }
 @media screen and (max-width: 720px) {
   .check-icon {
     left: 50%;
     transform: translateX(-50%);
-    bottom: calc(20vw - 31px);
+    bottom: calc(28.5vw);
   }
   .team-card-wrap {
+    padding: calc(100vw / 5 / 8);
     .team-card {
       height: calc(100vw / 5);
       width: 95vw;
       grid-template-rows: calc(100vw / 5);
+    }
+    .memoris-card {
+      height: calc((100vw / 5) - (100vw / 5 * 0.4));
+      grid-template-rows: calc((100vw / 5) - (100vw / 5 * 0.4));
+
+      .girls-img {
+        position: absolute;
+        top: -25%;
+      }
     }
   }
 }

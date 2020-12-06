@@ -5,24 +5,38 @@ export const store = createStore({
     return {
       stageGrilsGroup: [],
       stageGrilsTeam: [],
+      memorisTeam: [],
     };
   },
   mutations: {
-    // 加入队伍
+    // 舞台少女 - 加入队伍
     handleAddStageGril(state, stageGirl) {
       console.log(state.stageGrilsTeam);
       if (state.stageGrilsTeam.length < 5) {
         state.stageGrilsTeam.push(stageGirl);
       }
     },
-    // 删除队伍
+    // 舞台少女 - 从队伍中删除
     handleRemoveStageGril(state, stageGirl) {
       const index = state.stageGrilsTeam.findIndex(
         (i) => i.Id === stageGirl.Id
       );
       state.stageGrilsTeam.splice(index, 1);
     },
-    // 组合队伍
+    // 礼装 - 加入队伍
+    handleAddMemory(state, memory) {
+      console.log(state.memorisTeam);
+      if (state.memorisTeam.length < 5) {
+        state.memorisTeam.push(memory);
+      }
+    },
+    // 礼装 - 从队伍中删除
+    handleRemoveMemory(state, memory) {
+      const index = state.memorisTeam.findIndex((i) => i.Id === memory.Id);
+      state.memorisTeam.splice(index, 1);
+    },
+
+    //  组合队伍
     handleCompositionGroup(state, stageGirls) {
       console.log(Array.from(stageGirls));
       state.stageGrilsGroup.push(stageGirls);
